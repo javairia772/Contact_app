@@ -7,6 +7,9 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
+import android.net.Uri
+import android.widget.ImageView
+
 class ContactAdapter(
     private val contactList: MutableList<Contact>,
     private val listener: OnContactActionListener
@@ -23,6 +26,7 @@ class ContactAdapter(
         val tvContactPhone: TextView = itemView.findViewById(R.id.tvContactPhone)
         val btnEdit: Button = itemView.findViewById(R.id.btnEdit)
         val btnDelete: Button = itemView.findViewById(R.id.btnDelete)
+        val imgProfile: ImageView = itemView.findViewById(R.id.imgProfile)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ContactViewHolder {
@@ -32,25 +36,21 @@ class ContactAdapter(
     }
 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
-        val currentContact = contactList[position]
+        val contact = contactList[position]
 
-        holder.tvContactName.text = currentContact.name
-        holder.tvContactPhone.text = currentContact.phone
+        holder.tvContactName.text = contact.name
+        holder.tvContactPhone.text = contact.phone
 
-        holder.itemView.setOnClickListener {
-            listener.onItemClick(position)
+        if (contact.imageUri != null) {
+            holder.imgProfile.setImageURI(Uri.parse(contact.imageUri))
+        } else {
+            holder.imgProfile.setImageResource(R.mipmap.ic_launcher)
         }
 
-        holder.btnEdit.setOnClickListener {
-            listener.onEditClick(position)
-        }
-
-        holder.btnDelete.setOnClickListener {
-            listener.onDeleteClick(position)
-        }
+        holder.itemView.setOnClickListener { listener.onItemClick(position) }
+        holder.btnEdit.setOnClickListener { listener.onEditClick(position) }
+        holder.btnDelete.setOnClickListener { listener.onDeleteClick(position) }
     }
 
-    override fun getItemCount(): Int {
-        return contactList.size
-    }
+    override fun getItemCount() = contactList.size
 }

@@ -1,15 +1,35 @@
-*.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
+# Gradle
+.gradle/
+build/
+
+# Local configuration
 local.properties
+*.iml
+.idea/
+
+# APKs
+*.apk
+*.ap_
+*.aab
+
+# Mac/Linux specific
+.DS_Store
+*.swp
+
+# Logs
+*.log
+
+# Kotlin/Java compiled files
+*.class
+*.jar
+
+# Proguard
+proguard/
+
+# NDK
+obj/
+.externalNativeBuild/
+
+# Android Studio
+captures/
+.cxx/
